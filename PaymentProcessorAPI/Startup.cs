@@ -14,6 +14,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using PaymentProcessorAPI.Data;
 using PaymentProcessorAPI.PaymentProcessorMapper;
+using PaymentProcessorAPI.Repository;
+using PaymentProcessorAPI.Repository.IRepository;
 
 namespace PaymentProcessorAPI
 {
@@ -35,6 +37,8 @@ namespace PaymentProcessorAPI
              */
             services.AddDbContext<ApplicationDbContext>
                 (options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddScoped<IPaymentRequestRepository, PaymentRequestRepository>();
 
             services.AddAutoMapper(typeof(PaymentProcessorMappings));
 
