@@ -11,7 +11,7 @@ namespace PaymentProcessorAPI.Models
     {
         [Required]
         [Key]
-        public long PaymentId { get; set; }
+        public int PaymentId { get; set; }
 
         [Required]
         public string CreditCardNumber { get; set; }
