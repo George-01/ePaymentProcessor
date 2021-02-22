@@ -17,18 +17,18 @@ namespace PaymentProcessorAPI.Repository
         private readonly ICheapPaymentGateway _cheapPaymentGateway;
         private readonly IExpensivePaymentGateway _expensivePaymentGateway;
         private readonly IMapper _mapper;
-        private readonly ILogger<PaymentRequestRepository> _logger;
+        //private readonly ILogger<PaymentRequestRepository> _logger;
 
         public PaymentRequestRepository(IPaymentRepository paymentRepository,IPaymentStateRepository paymentStateRepository,
                                         ICheapPaymentGateway cheapPaymentGateway,IExpensivePaymentGateway expensivePaymentGateway,
-                                        IMapper mapper, ILogger<PaymentRequestRepository> logger)
+                                        IMapper mapper)//, ILogger<PaymentRequestRepository> logger)
         {
             _paymentRepository = paymentRepository;
             _paymentStateRepository = paymentStateRepository;
             _cheapPaymentGateway = cheapPaymentGateway;
             _expensivePaymentGateway = expensivePaymentGateway;
             _mapper = mapper;
-            _logger = logger;
+            //_logger = logger;
         }
         public async Task<PaymentStateDto> MakePayment(PaymentCreateDto paymentCreateDto)
         {
@@ -84,7 +84,7 @@ namespace PaymentProcessorAPI.Repository
                     }
                     catch (Exception ex)
                     {
-                        _logger.LogError(ex, ex.Message);
+                        //_logger.LogError(ex, ex.Message);
                     }
                     finally
                     {
