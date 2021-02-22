@@ -62,7 +62,6 @@ namespace PaymentProcessorAPI.Repository
                 }
                 catch (Exception ex)
                 {
-                    //log exception
                     if (tryCount == 0)
                     {
                         paymentStateDto = await ProcessPaymentStateDto(_cheapPaymentGateway, paymentCreateDto, paymentEntity);
