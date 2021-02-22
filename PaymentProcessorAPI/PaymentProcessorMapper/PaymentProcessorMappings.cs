@@ -14,6 +14,8 @@ namespace PaymentProcessorAPI.PaymentProcessorMapper
         {
             CreateMap<Payment, PaymentCreateDto>().ReverseMap();
 
+            CreateMap<Payment, PaymentListDto>().ReverseMap();
+
             CreateMap<PaymentState, PaymentStateDto>().ReverseMap();
         }
     }

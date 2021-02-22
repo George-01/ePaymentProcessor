@@ -17,8 +17,8 @@ namespace PaymentProcessorAPI.Repository
             if (num % 4 == 0 || num % 6 == 0)
                 throw new Exception("Call failed");
             if (num % 2 == 0)
-                return new PaymentStateDto() { PaymentState = PaymentStateEnum.Failed, PaymentStateDateCreated = DateTime.Now };
-            else return new PaymentStateDto() { PaymentState = PaymentStateEnum.Processed, PaymentStateDateCreated = DateTime.Now };
+                return new PaymentStateDto() { PaymentState = PaymentStateEnum.Failed, PaymentStateDate = DateTime.UtcNow };
+            else return new PaymentStateDto() { PaymentState = PaymentStateEnum.Processed, PaymentStateDate = DateTime.UtcNow };
         }
     }
 }

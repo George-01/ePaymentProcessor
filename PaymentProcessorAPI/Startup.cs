@@ -46,6 +46,16 @@ namespace PaymentProcessorAPI
 
             services.AddAutoMapper(typeof(PaymentProcessorMappings));
 
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("PaymentProcessOpenAPISpec",
+                    new Microsoft.OpenApi.Models.OpenApiInfo()
+                    {
+                        Title = "Payment Process API",
+                        Version = "1.0"
+                    });
+            });
+
             services.AddControllers();
         }
 
@@ -58,6 +68,14 @@ namespace PaymentProcessorAPI
             }
 
             app.UseHttpsRedirection();
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/PaymentProcessOpenAPISpec/swagger.json", "Payment Process API");
+                options.RoutePrefix = "";
+            });
 
             app.UseRouting();
 

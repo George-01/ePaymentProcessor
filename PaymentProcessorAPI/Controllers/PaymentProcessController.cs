@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -16,12 +17,33 @@ namespace PaymentProcessorAPI.Controllers
     public class PaymentProcessController : ControllerBase
     {
         private readonly ILogger<PaymentProcessController> _logger;
+        private readonly IPaymentRepository _paymentRepository;
         private readonly IPaymentRequestRepository _paymentRequestRepo;
+        private readonly IMapper _mapper;
 
-        public PaymentProcessController(ILogger<PaymentProcessController> logger, IPaymentRequestRepository paymentRequestRepo)
+        public PaymentProcessController(ILogger<PaymentProcessController> logger, IPaymentRequestRepository paymentRequestRepo,
+                                        IPaymentRepository paymentRepository, IMapper mapper)
         {
             _logger = logger;
             _paymentRequestRepo = paymentRequestRepo;
+            _paymentRepository = paymentRepository;
+            _mapper = mapper;
+        }
+
+        [HttpGet]
+        public IActionResult GetListPaymentProcessData()
+        {
+            var objList = _paymentRepository.GetAllPaymentData();
+
+            var objDto = new List<PaymentListDto>();
+
+            foreach (var obj in objList)
+            {
+                objDto.Add(_mapper.Map<PaymentListDto>(obj));
+            }
+
+            return Ok(objDto);
+            //return Ok(objDto);
         }
 
         [HttpPost]
@@ -40,7 +62,8 @@ namespace PaymentProcessorAPI.Controllers
 
                     if (!paymentResponse.IsProcessed)
                         return StatusCode(500, new { error = "Payment could not be processed" });
-                    return Ok(paymentResponse);
+                    return StatusCode(201, new { paymentResponse });
+                    //return Ok(paymentResponse);
                 }
                 else
                     return BadRequest(ModelState);
