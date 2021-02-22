@@ -41,6 +41,8 @@ namespace PaymentProcessorAPI
             services.AddScoped<IPaymentRequestRepository, PaymentRequestRepository>();
             services.AddScoped<ICheapPaymentGateway, CheapPaymentGateway>();
             services.AddScoped<IExpensivePaymentGateway, ExpensivePaymentGateway>();
+            services.AddScoped<IPaymentRepository, PaymentRepository>();
+            services.AddScoped<IPaymentStateRepository, PaymentStateRepository>();
 
             services.AddAutoMapper(typeof(PaymentProcessorMappings));
 
