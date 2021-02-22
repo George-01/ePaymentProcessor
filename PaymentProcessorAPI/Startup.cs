@@ -39,6 +39,8 @@ namespace PaymentProcessorAPI
                 (options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IPaymentRequestRepository, PaymentRequestRepository>();
+            services.AddScoped<ICheapPaymentGateway, CheapPaymentGateway>();
+            services.AddScoped<IExpensivePaymentGateway, ExpensivePaymentGateway>();
 
             services.AddAutoMapper(typeof(PaymentProcessorMappings));
 
